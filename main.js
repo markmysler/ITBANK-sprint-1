@@ -30,3 +30,67 @@ function logOut() {
 	const formElement = document.getElementById("loginForm");
 	formElement.style.display = "inline";
 }
+
+function transferir() {
+	let montoATransferir = document.getElementById("monto-transferir").value;
+	let cuentaATransferir = document.getElementById("toAccount").value;
+
+	if (montoATransferir > 0 && cuentaATransferir != null) {
+		let confirmacion = confirm(
+			"¿Desea transferir $" +
+				montoATransferir +
+				" a " +
+				cuentaATransferir +
+				"?"
+		);
+		if (confirmacion) {
+			operacionExitosa();
+		} else {
+			operacionCancelada();
+		}
+	}
+}
+
+function pagarFactura() {
+	let montoAPagar = document.getElementById("monto-pagar").value;
+	let beneficiario = document.getElementById("beneficiario").value;
+
+	if (montoAPagar > 0 && beneficiario != null) {
+		let confirmacion = confirm(
+			"¿Desea pagar $" + montoAPagar + " a " + beneficiario + "?"
+		);
+		if (confirmacion) {
+			operacionExitosa();
+		} else {
+			operacionCancelada();
+		}
+	}
+}
+
+function solicitarPrestamo() {
+	let montoSolicitado = document.getElementById("monto-solicitado").value;
+	let plazoEnMeses = document.getElementById("plazo-meses").value;
+
+	if (montoSolicitado > 0 && plazoEnMeses > 0) {
+		let confirmacion = confirm(
+			"¿Desea solicitar un préstamo de $" +
+				montoSolicitado +
+				" a pagar en " +
+				plazoEnMeses +
+				" meses?"
+		);
+		if (confirmacion) {
+			operacionExitosa();
+		} else {
+			operacionCancelada();
+		}
+	}
+}
+
+function operacionExitosa() {
+	alert("¡Operación exitosa!");
+}
+
+function operacionCancelada() {
+	alert("Operación cancelada.");
+}
