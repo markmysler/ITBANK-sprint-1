@@ -257,3 +257,34 @@ main {
 	padding: 5%;
 	width: 32vw !important;
 }
+
+footer {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	display: grid;
+	align-items: center;
+	margin-top: 10px;
+}
+
+footer ul {
+	list-style: none;
+	display: flex;
+	padding-left: 0;
+}
+
+.header-inicio {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.logo img {
+	height: auto;
+}
+
+.button-hb button {
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+}
