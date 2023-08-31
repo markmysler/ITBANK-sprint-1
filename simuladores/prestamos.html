@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Simulador de prestamos</title>
+
+    </head>
+    <body>
+
+        <h1>Simulador de prestamos</h1>
+        
+        <!--formulario para rellenar, para simular el prestamo-->
+        <div>
+
+            <form action="">
+
+                <label for="monto">Monto a solicitar:</label>
+                <input type="text" id="monto" placeholder="Ingresar monto" required>
+                <br>
+                <label for="meses">Tiempo(maximo 72 meses):</label>
+                <input type="text" id="meses" placeholder="Ingresar tiempo en meses"  required>
+                <br>
+                <label for="intereses">Ingresar el interes mensual del prestamo a solicitar:</label>
+                <input type="text" id="intereses" placeholder="Sin el simbolo de porcentaje" required>
+                
+            </form>
+
+            <button type="submit" id="botonCalcular" >Calcular prestamo</button>
+            <br>
+            <table>
+                <thead id="tabla">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Cuota</th>
+                        <th>Interés</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody"></tbody> <!--aqui se guada el calculo de la cuota a pagar, a partir de la funcion  -->
+                <tfoot id="tfoot"></tfoot>  <!-- aqui se guarda el calculo del total a pagar, a partir de la funcion -->
+               
+            </table>
+
+
+
+
+        </div>
+
+        
+        <script src="/simuladores/simuladorPrestamo.js"></script>
+
+    </body>
+</html>
