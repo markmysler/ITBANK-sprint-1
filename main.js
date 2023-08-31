@@ -1,41 +1,129 @@
+const hBtn = document.querySelector("#menu-btn");
+const menu = document.querySelector("#sidemenu");
+const menuBtns = document.querySelectorAll(".item");
+const mainContent = document.getElementById("main-content");
+const formElement = document.getElementById("logIn");
+let currentPage = "cuentas";
 let user = {};
-window.onload = mostrarForms(false);
+const sideMenuName = document.getElementById("sideMenuName");
+const saldoSideBar = document.getElementById("saldoSideBar");
+function toggleMenu(page) {
+	if (menu.classList[0] === "menu-expanded") {
+		menu.classList.toggle("menu-expanded");
+		menu.classList.toggle("menu-collapsed");
+		document.querySelector("body").classList.toggle("body-expanded");
+		currentPage = page;
+		mainContent.innerHTML = getMainHtml(page);
+	}
+}
+function getMainHtml(page) {
+	switch (page) {
+		case "cuentas": {
+			return `
+            <div id="dashboard">
+            <div id="divImgDash">
+            <img src="./imagenes/logo.png" alt="Foto de perfil" id="dashImg" >
+            </div>
+                <h1>${user.name}</h1>
+                <h3 id="saldoDash">$${user.saldo}</h3>
+            </div>
+                    `;
+		}
+		case "transferencias": {
+			return `
+            <div id="transferencia">
+				<h2>Transferir fondos:</h2>
+				<form id="transferForm" onsubmit="transferir(event)">
+					<label for="toAccount">Cuenta de destino:</label>
+					<input type="text" id="toAccount" required />
+					<br />
+					<label for="monto-transferir">Monto:</label>
+					<input type="number" id="monto-transferir" required />
+					<br />
+					<button type="submit">Realizar Transferencia</button>
+				</form>
+			</div>
+            `;
+		}
+		case "pagos": {
+			return `
+            <div id="pago-factura">
+				<h2>Pago de facturas:</h2>
+
+				<form id="billPaymentForm" onsubmit="pagarFactura(event)">
+					<label for="beneficiario">Beneficiario:</label>
+					<input type="text" id="beneficiario" required />
+					<br />
+					<label for="monto-pagar">Monto:</label>
+					<input type="number" id="monto-pagar" required />
+					<br />
+					<button type="submit">Realizar Pago</button>
+				</form>
+			</div>
+            `;
+		}
+		case "prestamos": {
+			return `
+            <div id="prestamo">
+				<h2>Solicitud de préstamo:</h2>
+
+				<form id="loanRequestForm" onsubmit="solicitarPrestamo(event)">
+					<label for="monto-solicitado">Monto solicitado:</label>
+					<input type="number" id="monto-solicitado" required />
+					<br />
+					<label for="plazo-meses">Plazo (meses):</label>
+					<input type="number" id="plazo-meses" required />
+					<br />
+					<button type="submit">Solicitar Préstamo</button>
+				</form>
+			</div>
+            `;
+		}
+		case "convertidor": {
+			return `
+                <h1>Convertidor</h1>
+            `;
+		}
+	}
+}
+hBtn.addEventListener("click", () => {
+	menu.classList.toggle("menu-expanded");
+	menu.classList.toggle("menu-collapsed");
+	document.querySelector("body").classList.toggle("body-expanded");
+});
 function logUserIn(e) {
 	e.preventDefault();
-	const [name, password] = e.target;
-	if (name.value.length > 0 && password.value.length > 0) {
-		user.name = name.value;
-		user.password = password.value;
+
+	const [userName, userPassword] = e.target;
+	if (userName.value.length > 0 && userPassword.value.length > 0) {
+		user.name = userName.value;
+		user.password = userPassword.value;
 		user.saldo = 10000;
 	} else {
 		alert("No es posible enviar un formulario incompleto");
 		return;
 	}
-	const formElement = document.getElementById("logIn");
 	formElement.style.display = "none";
-
-	const headerUserInfoElement = document.getElementById("headerUserInfo");
-	headerUserInfoElement.innerHTML = `
-    <div id="logOutDiv">
-    <h3>${user.name}</h3>
-    <button onclick="logOut()">Cerrar sesion</button>
+	mainContent.innerHTML = `
+    <div id="dashboard">
+    <div id="divImgDash">
+    <img src="./imagenes/logo.png" alt="Foto de perfil" id="dashImg" >
     </div>
-    
-    `;
-	actualizarSaldoEnUi();
-	document.getElementById("saldo").innerHTML = user.saldo;
-	mostrarForms(true);
+        <h1>${user.name}</h1>
+        <h3 id="saldoDash">$${user.saldo}</h3>
+    </div>
+            `;
+
+	sideMenuName.innerHTML = `<h2>${user.name}</h2>`;
+	saldoSideBar.innerHTML = `$${user.saldo}`;
+
+	for (let index = 0; index < menuBtns.length; index++) {
+		menuBtns[index].disabled = false;
+	}
 }
 
 function logOut() {
-	user = {};
-	const logOutDiv = document.getElementById("logOutDiv");
-	logOutDiv.style.display = "none";
-	const formElement = document.getElementById("logIn");
-	formElement.style.display = "inline";
-	document.getElementById("nombre").value = "";
-	document.getElementById("password").value = "";
-	mostrarForms(false);
+	window.location.reload();
 }
 
 function transferir(event) {
@@ -126,15 +214,11 @@ function operacionExitosa() {
 function operacionCancelada() {
 	alert("Operación cancelada.");
 }
-
-function mostrarForms(boolean) {
-	["pago-factura", "transferencia", "prestamo", "saldoContainer"].forEach(
-		(form) => {
-			document.getElementById(form).hidden = !boolean;
-		}
-	);
-}
-
 function actualizarSaldoEnUi() {
-	document.getElementById("saldo").innerHTML = user.saldo;
+	saldoSideBar.innerHTML = `$${user.saldo}`;
+
+	const saldoDash = document.getElementById("saldoDash");
+	if (saldoDash) {
+		saldoDash.innerHTML = `$${user.saldo}`;
+	}
 }
