@@ -23,7 +23,7 @@ function calcularCuota(monto, intereses, meses){
     
         //Formato fechas//
 
-    let fechas = [];
+    
     let fechaActual = new Date();
     const año = fechaActual.getFullYear();
     const mes = fechaActual.getMonth() + 1; 
