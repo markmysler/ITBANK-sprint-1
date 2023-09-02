@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Simulador de cambio de divisas </title>
+
+    </head>
+    <body>
+
+        <h1>Calculadora de divisas</h1>
+        
+        <div>
+            <form action="">
+
+                <label for="monto">Introducir monto en pesos:</label>
+                <input type="text" id="monto">
+                <label for="moneda">Seleccionar moneda</label>
+                <select name="moneda" id="moneda">
+                    <option value="Dolar">Dolar</option>
+                    <option value="Euro">Euro</option>
+                    <option value="Real">Real</option>
+                </select>
+            </form>
+
+            <button type="submit" id="botonConvertir">Convertir</button>
+
+            <table>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <script src="/simuladores/simuladorDivisas.js"></script>
+    </body>
+</html>
